@@ -26,7 +26,7 @@ declare module "tspromise" {
 		static spawn<TR>(generatorFunction: () => TR): Promise<TR>;
 		static rewriteFolderSync(path: string): void;
 		static waitAsync(time: number): Promise<{}>;
-		static wrapNodeErrValueCallback<T>(resolve: (value: T) => void, reject: (error: Error) => void): (err: Error, value: T) => void;
+		static nfcall<T>(obj: any, methodName: String, ...args: any[]): Thenable<T>;
 	}
 	
 	export = Promise;

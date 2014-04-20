@@ -217,14 +217,18 @@ class Promise<T> {
 		});
 	}
 
-	static wrapNodeErrValueCallback<T>(resolve: (value: T) => void, reject: (error: Error) => void): (err: Error, value: T) => void {
-		return (err: Error, value: T) => {
-			if (err) {
-				reject(err);
-			} else {
-				resolve(value);
+	static nfcall<T>(obj: any, methodName: String, ...args: any[]): Promise<T> {
+		return new Promise((resolve, reject) => {
+			function callback(err: Error, result: T) {
+				if (err) {
+					reject(err);
+				} else {
+					resolve(result);
+				}
 			}
-		};
+			args.push(callback);
+			(<Function>obj[methodName]).apply(obj, args);
+		});
 	}
 }
 

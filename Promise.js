@@ -210,14 +210,22 @@ var Promise = (function () {
         });
     };
 
-    Promise.wrapNodeErrValueCallback = function (resolve, reject) {
-        return function (err, value) {
-            if (err) {
-                reject(err);
-            } else {
-                resolve(value);
+    Promise.nfcall = function (obj, methodName) {
+        var args = [];
+        for (var _i = 0; _i < (arguments.length - 2); _i++) {
+            args[_i] = arguments[_i + 2];
+        }
+        return new Promise(function (resolve, reject) {
+            function callback(err, result) {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(result);
+                }
             }
-        };
+            args.push(callback);
+            obj[methodName].apply(obj, args);
+        });
     };
     return Promise;
 })();
