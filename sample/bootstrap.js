@@ -1,3 +1,4 @@
+///<reference path="../node.d.ts" />
 var Promise = require('../Promise');
 Promise.rewriteFolderSync(__dirname);
 

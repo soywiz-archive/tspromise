@@ -1,3 +1,5 @@
+///<reference path="../node.d.ts" />
+
 import Promise = require('../Promise');
 declare function yield<T>(promise: Promise<T>): T;
 

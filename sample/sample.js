@@ -1,7 +1,8 @@
+///<reference path="../node.d.ts" />
 var Promise = require('../Promise');
 
 function main() {
-    var testAsync = Promise.async(function*(a, b) {
+    var testAsync = Promise.async(function (a, b) {
         console.log('[1]: ' + a);
         yield(Promise.waitAsync(1000));
         console.log('[2]: ' + b);
@@ -12,7 +13,7 @@ function main() {
         console.log('result: ' + result);
     });
 
-    Promise.spawn(function*() {
+    Promise.spawn(function () {
         console.log('[1]: ' + 'a');
         yield(Promise.waitAsync(1000));
         console.log('[2]: ' + 'b');
