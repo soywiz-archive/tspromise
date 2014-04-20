@@ -26,7 +26,11 @@ var Promise = (function () {
             _this.__executeCallbacks();
         };
 
-        callback(resolve, reject);
+        try  {
+            callback(resolve, reject);
+        } catch (e) {
+            reject(e);
+        }
     }
     Promise.prototype.__executeCallbacks = function () {
         if (!this.__isCompleted)
@@ -204,6 +208,16 @@ var Promise = (function () {
         return new Promise(function (resolve, reject) {
             setTimeout(resolve, time);
         });
+    };
+
+    Promise.wrapNodeErrValueCallback = function (resolve, reject) {
+        return function (err, value) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(value);
+            }
+        };
     };
     return Promise;
 })();

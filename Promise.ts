@@ -37,7 +37,11 @@ class Promise<T> {
 			this.__executeCallbacks();
 		};
 
-		callback(resolve, reject);
+		try {
+			callback(resolve, reject);
+		} catch (e) {
+			reject(e);
+		}
 	}
 
 	private __executeCallbacks() {
@@ -212,8 +216,16 @@ class Promise<T> {
 			setTimeout(resolve, time);
 		});
 	}
-}
 
-declare function yield<T>(promise: Promise<T>): T;
+	static wrapNodeErrValueCallback<T>(resolve: (value: T) => void, reject: (error: Error) => void): (err: Error, value: T) => void {
+		return (err: Error, value: T) => {
+			if (err) {
+				reject(err);
+			} else {
+				resolve(value);
+			}
+		};
+	}
+}
 
 export = Promise;
