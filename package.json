@@ -1,0 +1,25 @@
+{
+  "name": "tspromise",
+  "description": "A ES6-compatible node.js promise library for harmony with support for typescript and generators",
+  "version": "0.0.1",
+  "author": "Carlos Ballesteros <cballesterosvelasco@gmail.com> (http://cballesterosvelasco.es/)",
+  "contributors": [ 
+  ],
+  "dependencies": {
+  },
+  "devDependencies": {
+  },
+  "homepage": "https://github.com/soywiz/tspromise",
+  "keywords": ["promises", "harmony", "generators"],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/soywiz/tspromise.git"
+  },
+  "main": "Promise.js",
+  "scripts": {
+  },
+  "license": "MIT",
+  "engines": {
+    "node": "*"
+  }
+}
