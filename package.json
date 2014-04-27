@@ -1,7 +1,7 @@
 {
   "name": "tspromise",
   "description": "A ES6-compatible node.js promise library for harmony with support for typescript and generators",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "author": "Carlos Ballesteros <cballesterosvelasco@gmail.com> (http://cballesterosvelasco.es/)",
   "contributors": [ 
   ],

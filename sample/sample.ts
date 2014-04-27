@@ -16,6 +16,16 @@ Promise.spawn(() => {
 	console.error(error);
 });
 
+// This should not cause a stack overflow!
+var start = Date.now();
+var resolvePromise;
+var promise = new Promise<number>((resolve, reject) => { resolvePromise = resolve });
+for (var n = 0; n < 100000; n++) promise = promise.then((value) => value + 1);
+resolvePromise(0);
+promise.then((value) => {
+	console.log('completed! : ' + value + ' : ' + (Date.now() - start));
+});
+
 /*
 var testAsync = Promise.async((a: String, b: String) => {
 	console.log('[1]: ' + a);

@@ -46,11 +46,13 @@ class Promise<T> {
 
 	private __executeCallbacks() {
 		if (!this.__isCompleted) return;
-
-		while (this.__callbacks.length > 0) {
-			var callback = this.__callbacks.shift();
-			callback[this.__call](this.__result);
-		}
+		if (this.__callbacks.length == 0) return;
+		setImmediate(() => {
+			while (this.__callbacks.length > 0) {
+				var callback = this.__callbacks.shift();
+				callback[this.__call](this.__result);
+			}
+		});
 	}
 
 	then<TR>(onFulfilled: (value: T) => Promise<TR>, onRejected?: (error: Error) => TR): Promise<TR>;

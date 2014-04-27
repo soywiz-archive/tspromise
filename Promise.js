@@ -33,13 +33,17 @@ var Promise = (function () {
         }
     }
     Promise.prototype.__executeCallbacks = function () {
+        var _this = this;
         if (!this.__isCompleted)
             return;
-
-        while (this.__callbacks.length > 0) {
-            var callback = this.__callbacks.shift();
-            callback[this.__call](this.__result);
-        }
+        if (this.__callbacks.length == 0)
+            return;
+        setImmediate(function () {
+            while (_this.__callbacks.length > 0) {
+                var callback = _this.__callbacks.shift();
+                callback[_this.__call](_this.__result);
+            }
+        });
     };
 
     Promise.prototype.then = function (onFulfilled, onRejected) {
