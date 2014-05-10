@@ -4,7 +4,9 @@ interface Thenable<T> {
 	then<TR>(onFulfilled: (value: T) => Thenable<TR>, onRejected?: (error: Error) => TR): Thenable<TR>;
 	then<TR>(onFulfilled: (value: T) => Thenable<TR>, onRejected?: (error: Error) => void): Thenable<TR>;
 	then<TR>(onFulfilled: (value: T) => TR, onRejected?: (error: Error) => void): Thenable<TR>;
-	catch(onRejected: (error: Error) => T): Thenable<T>;
+	catch(rejected?: (error: Error) => void): Promise<T>;
+	catch<Q>(rejected?: (error: Error) => Q): Promise<Q>;
+	catch<Q>(rejected?: (error: Error) => Promise<Q>): Promise<Q>;
 }
 
 declare module "tspromise" {
@@ -13,7 +15,9 @@ declare module "tspromise" {
 		public then<TR>(onFulfilled: (value: T) => Promise<TR>, onRejected?: (error: Error) => TR): Promise<TR>;
 		public then<TR>(onFulfilled: (value: T) => Promise<TR>, onRejected?: (error: Error) => void): Promise<TR>;
 		public then<TR>(onFulfilled: (value: T) => TR, onRejected?: (error: Error) => void): Promise<TR>;
-		public catch(onRejected: (error: Error) => T): Promise<T>;
+		public catch(rejected?: (error: Error) => void): Promise<T>;
+		public catch<Q>(rejected?: (error: Error) => Q): Promise<Q>;
+		public catch<Q>(rejected?: (error: Error) => Promise<Q>): Promise<Q>;
 		static resolve<T>(value?: T): Promise<T>;
 		static resolve<T>(promise: Promise<T>): Promise<T>;
 		static reject<T>(error: Error): Promise<T>;
