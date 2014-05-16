@@ -16,10 +16,10 @@ declare module "tspromise" {
 		public then<TR>(onFulfilled: (value: T) => Promise<TR>, onRejected?: (error: Error) => void): Promise<TR>;
 		public then<TR>(onFulfilled: (value: T) => TR, onRejected?: (error: Error) => void): Promise<TR>;
 		public catch(rejected?: (error: Error) => void): Promise<T>;
-		public catch<Q>(rejected?: (error: Error) => Q): Promise<Q>;
 		public catch<Q>(rejected?: (error: Error) => Promise<Q>): Promise<Q>;
-		static resolve<T>(value?: T): Promise<T>;
+		public catch<Q>(rejected?: (error: Error) => Q): Promise<Q>;
 		static resolve<T>(promise: Promise<T>): Promise<T>;
+		static resolve<T>(value?: T): Promise<T>;
 		static reject<T>(error: Error): Promise<T>;
 		static all<T>(promises: Promise<T>[]): Promise<{}>;
 		static async<TR>(callback: () => TR): () => Promise<TR>;
